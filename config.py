@@ -18,8 +18,8 @@ APP_VERSION = "4.0"
 # 3. اذهب إلى Settings > API
 # 4. انسخ Project URL و anon/public key
 
-SUPABASE_URL = "https://your-project.supabase.co"  # ⬅️ ضع رابط مشروعك هنا
-SUPABASE_KEY = "your-anon-key-here"  # ⬅️ ضع المفتاح العام هنا
+SUPABASE_URL = "https://ubbizckinpejknlpydaf.supabase.co"  # ⬅️ ضع رابط مشروعك هنا
+SUPABASE_KEY = "sb_publishable_1tXGnz1e8fJHdo5R27jwKQ_G1VvEj7h"  # ⬅️ ضع المفتاح العام هنا
 
 # تفعيل/تعطيل قاعدة البيانات
 USE_DATABASE = False  # غيّرها إلى True عند إعداد Supabase
