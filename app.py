@@ -1,7 +1,51 @@
 import streamlit as st
 
-st.set_page_config(page_title="Test HR App", page_icon="🏢", layout="wide")
+# إعداد صفحة Streamlit
+st.set_page_config(
+    page_title="منصة الموارد البشرية - نسخة تجريبية",
+    page_icon="🏢",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-st.title("منصة الموارد البشرية - اختبار التشغيل")
-st.write("إذا رأيت هذه الرسالة فهذا يعني أن التطبيق يعمل بنجاح على Streamlit Cloud.")
-st.write("جرّب إعادة تحميل الصفحة بعد كل تعديل على الكود في GitHub.")
+# تهيئة الجلسة
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if "emp_id" not in st.session_state:
+    st.session_state.emp_id = None
+
+# صفحة تسجيل الدخول
+def login_page():
+    st.title("🔐 تسجيل الدخول")
+
+    emp_id = st.text_input("رقم الموظف", placeholder="مثال: 001")
+
+    if st.button("دخول"):
+        if emp_id.strip():
+            st.session_state.logged_in = True
+            st.session_state.emp_id = emp_id.strip()
+            st.success(f"تم تسجيل الدخول برقم الموظف: {st.session_state.emp_id}")
+            st.experimental_rerun()
+        else:
+            st.error("رجاءً أدخل رقم الموظف.")
+
+# لوحة التحكم البسيطة
+def dashboard_page():
+    st.title("📊 لوحة التحكم (نسخة مبسطة)")
+    st.write(f"أهلاً بك، رقم الموظف الحالي: {st.session_state.emp_id}")
+
+    st.info("هذه نسخة تجريبية للتأكد أن التسجيل والتنقل يعملان بشكل صحيح.")
+
+    if st.button("🚪 تسجيل خروج"):
+        st.session_state.clear()
+        st.experimental_rerun()
+
+def main():
+    if not st.session_state.logged_in:
+        login_page()
+    else:
+        dashboard_page()
+
+if __name__ == "__main__":
+    main()
