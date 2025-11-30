@@ -86,7 +86,7 @@ def dashboard_page():
 
     with b2:
         if st.button("📝 طلباتي"):
-       	    st.session_state.page = "my_requests"
+            st.session_state.page = "my_requests"
             st.experimental_rerun()
 
     with b3:
@@ -202,7 +202,7 @@ def approvals_page():
         {
             "رقم الطلب": r["request_id"],
             "الموظف": r["employee_name"],
-            "نوع الطلب": REQUEST_TYPES[r["request_type"]]["name"],
+            "نوع الطلب": REQUEST_TYPES[r]["request_type"]["name"],
             "النوع الفرعي": r["request_subtype"],
             "العنوان": r["title"],
             "الحالة": r["status"],
@@ -215,7 +215,6 @@ def approvals_page():
 # الدالة الرئيسية
 
 def main():
-    # الشريط الجانبي
     with st.sidebar:
         st.title(APP_TITLE)
         st.write(f"الإصدار: {APP_VERSION}")
@@ -230,7 +229,6 @@ def main():
                 st.session_state.clear()
                 st.experimental_rerun()
 
-    # الصفحات
     if not st.session_state.logged_in:
         login_page()
     else:
