@@ -86,7 +86,7 @@ def dashboard_page():
 
     with b2:
         if st.button("📝 طلباتي"):
-            st.session_state.page = "my_requests"
+       	    st.session_state.page = "my_requests"
             st.experimental_rerun()
 
     with b3:
@@ -172,7 +172,6 @@ def my_requests_page():
         st.info("لا توجد طلبات حتى الآن.")
         return
 
-    # عرض بسيط للطلبات
     df_data = [
         {
             "رقم الطلب": r["request_id"],
