@@ -1,0 +1,33 @@
+[theme]
+# الألوان الأساسية
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+[server]
+# إعدادات الخادم
+headless = true
+enableCORS = false
+enableXsrfProtection = true
+maxUploadSize = 200
+
+# المنفذ (يمكن تغييره)
+port = 8501
+
+[browser]
+# إعدادات المتصفح
+gatherUsageStats = false
+serverAddress = "localhost"
+serverPort = 8501
+
+[runner]
+# إعدادات التشغيل
+magicEnabled = true
+fastReruns = true
+
+[client]
+# إعدادات العميل
+showErrorDetails = true
+toolbarMode = "minimal"
