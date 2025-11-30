@@ -1,47 +1,66 @@
 import streamlit as st
+from config import APP_TITLE, APP_ICON, APP_VERSION, EMPLOYEES
 
-# إعداد صفحة Streamlit
 st.set_page_config(
-    page_title="منصة الموارد البشرية - نسخة تجريبية",
-    page_icon="🏢",
+    page_title=APP_TITLE,
+    page_icon=APP_ICON,
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# تهيئة الجلسة
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 if "emp_id" not in st.session_state:
     st.session_state.emp_id = None
 
-# صفحة تسجيل الدخول
 def login_page():
     st.title("🔐 تسجيل الدخول")
 
     emp_id = st.text_input("رقم الموظف", placeholder="مثال: 001")
 
     if st.button("دخول"):
-        if emp_id.strip():
+        emp_id = emp_id.strip()
+        if emp_id in EMPLOYEES:
             st.session_state.logged_in = True
-            st.session_state.emp_id = emp_id.strip()
-            st.success(f"تم تسجيل الدخول برقم الموظف: {st.session_state.emp_id}")
-            st.experimental_rerun()
+            st.session_state.emp_id = emp_id
+            st.rerun()
         else:
-            st.error("رجاءً أدخل رقم الموظف.")
+            st.error("رقم الموظف غير موجود في النظام (جرّب 001 إلى 005).")
 
-# لوحة التحكم البسيطة
 def dashboard_page():
-    st.title("📊 لوحة التحكم (نسخة مبسطة)")
-    st.write(f"أهلاً بك، رقم الموظف الحالي: {st.session_state.emp_id}")
+    emp_id = st.session_state.emp_id
+    emp = EMPLOYEES[emp_id]
 
-    st.info("هذه نسخة تجريبية للتأكد أن التسجيل والتنقل يعملان بشكل صحيح.")
+    st.title("📊 لوحة التحكم (مرتبطة بالموظف)")
+
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.metric("الموظف", emp["name"])
+    with c2:
+        st.metric("القسم", emp["department"])
+    with c3:
+        st.metric("الدور", emp["role"])
+    with c4:
+        st.metric("إصدار النظام", APP_VERSION)
+
+    st.divider()
+    st.info("هذا عرض مبسط لملف الموظف. لاحقاً نضيف الطلبات، الإجازات، وغيرها.")
 
     if st.button("🚪 تسجيل خروج"):
         st.session_state.clear()
-        st.experimental_rerun()
+        st.rerun()
 
 def main():
+    with st.sidebar:
+        st.title(APP_TITLE)
+        st.write(f"الإصدار: {APP_VERSION}")
+        st.divider()
+        if st.session_state.logged_in:
+            emp = EMPLOYEES[st.session_state.emp_id]
+            st.write(f"👤 {emp['name']}")
+            st.write(f"🏢 {emp['department']}")
+
     if not st.session_state.logged_in:
         login_page()
     else:
