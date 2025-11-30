@@ -1,0 +1,14 @@
+# متطلبات المشروع - HR Platform v4.0
+# استخدم: pip install -r requirements.txt
+
+streamlit==1.29.0
+pandas==2.1.3
+supabase==2.0.0
+python-dateutil==2.8.2
+plotly==5.18.0
+openpyxl==3.11.0
+requests==2.31.0
+pyarrow==13.0.0
+pydantic==2.5.0
+python-dotenv==1.0.0
+altair==5.1.2
