@@ -18,15 +18,22 @@ def login_page():
     st.title("🔐 تسجيل الدخول")
 
     emp_id = st.text_input("رقم الموظف", placeholder="مثال: 001")
+    password = st.text_input("الرقم السري", type="password", placeholder="مثال: 1234")
 
     if st.button("دخول"):
         emp_id = emp_id.strip()
-        if emp_id in EMPLOYEES:
-            st.session_state.logged_in = True
-            st.session_state.emp_id = emp_id
-            st.rerun()
-        else:
-            st.error("رقم الموظف غير موجود في النظام (جرّب 001 إلى 005).")
+        if emp_id not in EMPLOYEES:
+            st.error("رقم الموظف غير موجود في النظام.")
+            return
+
+        emp = EMPLOYEES[emp_id]
+        if password != emp.get("password", ""):
+            st.error("الرقم السري غير صحيح.")
+            return
+
+        st.session_state.logged_in = True
+        st.session_state.emp_id = emp_id
+        st.rerun()
 
 def dashboard_page():
     emp_id = st.session_state.emp_id
